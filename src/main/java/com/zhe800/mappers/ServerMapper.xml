@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhe800.dao.ServerMapper">
+  <resultMap id="BaseResultMap" type="com.zhe800.model.Server">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="assert_number" jdbcType="VARCHAR" property="assertNumber" />
+    <result column="idrac_ip" jdbcType="VARCHAR" property="idracIp" />
+    <result column="hostname" jdbcType="VARCHAR" property="hostname" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="principal" jdbcType="VARCHAR" property="principal" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="sn_number" jdbcType="VARCHAR" property="snNumber" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <result column="added_time" jdbcType="TIMESTAMP" property="addedTime" />
+    <result column="idc_id" jdbcType="INTEGER" property="idcId" />
+    <result column="cabinet_id" jdbcType="INTEGER" property="cabinetId" />
+    <result column="cabinet_position" jdbcType="VARCHAR" property="cabinetPosition" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, assert_number, idrac_ip, hostname, status, principal, type, model, sn_number, 
+    buy_time, added_time, idc_id, cabinet_id, cabinet_position, description
+  </sql>
+  <select id="selectByExample" parameterType="com.zhe800.model.ServerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.zhe800.model.ServerExample">
+    delete from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhe800.model.Server">
+    insert into server (id, assert_number, idrac_ip, 
+      hostname, status, principal, 
+      type, model, sn_number, 
+      buy_time, added_time, idc_id, 
+      cabinet_id, cabinet_position, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{assertNumber,jdbcType=VARCHAR}, #{idracIp,jdbcType=VARCHAR}, 
+      #{hostname,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{snNumber,jdbcType=VARCHAR}, 
+      #{buyTime,jdbcType=TIMESTAMP}, #{addedTime,jdbcType=TIMESTAMP}, #{idcId,jdbcType=INTEGER}, 
+      #{cabinetId,jdbcType=INTEGER}, #{cabinetPosition,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhe800.model.Server">
+    insert into server
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="assertNumber != null">
+        assert_number,
+      </if>
+      <if test="idracIp != null">
+        idrac_ip,
+      </if>
+      <if test="hostname != null">
+        hostname,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="snNumber != null">
+        sn_number,
+      </if>
+      <if test="buyTime != null">
+        buy_time,
+      </if>
+      <if test="addedTime != null">
+        added_time,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="cabinetId != null">
+        cabinet_id,
+      </if>
+      <if test="cabinetPosition != null">
+        cabinet_position,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assertNumber != null">
+        #{assertNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idracIp != null">
+        #{idracIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostname != null">
+        #{hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="snNumber != null">
+        #{snNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null">
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addedTime != null">
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=INTEGER},
+      </if>
+      <if test="cabinetId != null">
+        #{cabinetId,jdbcType=INTEGER},
+      </if>
+      <if test="cabinetPosition != null">
+        #{cabinetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhe800.model.ServerExample" resultType="java.lang.Integer">
+    select count(*) from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update server
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assertNumber != null">
+        assert_number = #{record.assertNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idracIp != null">
+        idrac_ip = #{record.idracIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostname != null">
+        hostname = #{record.hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principal != null">
+        principal = #{record.principal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snNumber != null">
+        sn_number = #{record.snNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyTime != null">
+        buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addedTime != null">
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.idcId != null">
+        idc_id = #{record.idcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cabinetId != null">
+        cabinet_id = #{record.cabinetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cabinetPosition != null">
+        cabinet_position = #{record.cabinetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update server
+    set id = #{record.id,jdbcType=INTEGER},
+      assert_number = #{record.assertNumber,jdbcType=VARCHAR},
+      idrac_ip = #{record.idracIp,jdbcType=VARCHAR},
+      hostname = #{record.hostname,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      principal = #{record.principal,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      sn_number = #{record.snNumber,jdbcType=VARCHAR},
+      buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      idc_id = #{record.idcId,jdbcType=INTEGER},
+      cabinet_id = #{record.cabinetId,jdbcType=INTEGER},
+      cabinet_position = #{record.cabinetPosition,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.zhe800.model.Server">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="assert_number" jdbcType="VARCHAR" property="assertNumber" />
+    <result column="idrac_ip" jdbcType="VARCHAR" property="idracIp" />
+    <result column="hostname" jdbcType="VARCHAR" property="hostname" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="principal" jdbcType="VARCHAR" property="principal" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="sn_number" jdbcType="VARCHAR" property="snNumber" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <result column="added_time" jdbcType="TIMESTAMP" property="addedTime" />
+    <result column="idc_id" jdbcType="INTEGER" property="idcId" />
+    <result column="cabinet_id" jdbcType="INTEGER" property="cabinetId" />
+    <result column="cabinet_position" jdbcType="VARCHAR" property="cabinetPosition" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, assert_number, idrac_ip, hostname, status, principal, type, model, sn_number, 
+    buy_time, added_time, idc_id, cabinet_id, cabinet_position, description
+  </sql>
+  <select id="selectByExample" parameterType="com.zhe800.model.ServerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.zhe800.model.ServerExample">
+    delete from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhe800.model.Server">
+    insert into server (id, assert_number, idrac_ip, 
+      hostname, status, principal, 
+      type, model, sn_number, 
+      buy_time, added_time, idc_id, 
+      cabinet_id, cabinet_position, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{assertNumber,jdbcType=VARCHAR}, #{idracIp,jdbcType=VARCHAR}, 
+      #{hostname,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{principal,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{snNumber,jdbcType=VARCHAR}, 
+      #{buyTime,jdbcType=TIMESTAMP}, #{addedTime,jdbcType=TIMESTAMP}, #{idcId,jdbcType=INTEGER}, 
+      #{cabinetId,jdbcType=INTEGER}, #{cabinetPosition,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhe800.model.Server">
+    insert into server
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="assertNumber != null">
+        assert_number,
+      </if>
+      <if test="idracIp != null">
+        idrac_ip,
+      </if>
+      <if test="hostname != null">
+        hostname,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="snNumber != null">
+        sn_number,
+      </if>
+      <if test="buyTime != null">
+        buy_time,
+      </if>
+      <if test="addedTime != null">
+        added_time,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="cabinetId != null">
+        cabinet_id,
+      </if>
+      <if test="cabinetPosition != null">
+        cabinet_position,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assertNumber != null">
+        #{assertNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idracIp != null">
+        #{idracIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostname != null">
+        #{hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="snNumber != null">
+        #{snNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null">
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addedTime != null">
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=INTEGER},
+      </if>
+      <if test="cabinetId != null">
+        #{cabinetId,jdbcType=INTEGER},
+      </if>
+      <if test="cabinetPosition != null">
+        #{cabinetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhe800.model.ServerExample" resultType="java.lang.Integer">
+    select count(*) from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update server
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assertNumber != null">
+        assert_number = #{record.assertNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idracIp != null">
+        idrac_ip = #{record.idracIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostname != null">
+        hostname = #{record.hostname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.principal != null">
+        principal = #{record.principal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snNumber != null">
+        sn_number = #{record.snNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyTime != null">
+        buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addedTime != null">
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.idcId != null">
+        idc_id = #{record.idcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cabinetId != null">
+        cabinet_id = #{record.cabinetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cabinetPosition != null">
+        cabinet_position = #{record.cabinetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update server
+    set id = #{record.id,jdbcType=INTEGER},
+      assert_number = #{record.assertNumber,jdbcType=VARCHAR},
+      idrac_ip = #{record.idracIp,jdbcType=VARCHAR},
+      hostname = #{record.hostname,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      principal = #{record.principal,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      sn_number = #{record.snNumber,jdbcType=VARCHAR},
+      buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      idc_id = #{record.idcId,jdbcType=INTEGER},
+      cabinet_id = #{record.cabinetId,jdbcType=INTEGER},
+      cabinet_position = #{record.cabinetPosition,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
